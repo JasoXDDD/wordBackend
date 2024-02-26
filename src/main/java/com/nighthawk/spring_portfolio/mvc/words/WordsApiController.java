@@ -19,13 +19,13 @@ public class WordsApiController {
      * @GetMapping annotation is used for mapping HTTP GET requests onto specific handler methods.
      */
     @GetMapping("/")
-    public ResponseEntity<List<Words>> getWords() {
+    public ResponseEntity<List<Words>> getAllWords() {
         // ResponseEntity returns List of Jokes provide by JPA findAll()
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/new")
-    public ResponseEntity<int[]> getWords() {
+    public ResponseEntity<int[]> getNewWords() {
         // ResponseEntity returns List of Jokes provide by JPA findAll()
         List<Words> words = repository.findAll();
         int id = (int)(1+words.size()*Math.random());
