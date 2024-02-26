@@ -20,10 +20,6 @@ public class Words {
     @Column(unique=true)
     private String word;
 
-    public String getWord() {
-        return word;
-    }
-
     // starting words
     public static String[] init() {
         ArrayList<String> wordsList = new ArrayList<String>();
