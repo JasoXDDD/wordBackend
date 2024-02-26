@@ -10,6 +10,6 @@ public interface WordsJpaRepository extends JpaRepository<Words, Long> {
     The below custom methods are prototyped for this application
     */
     void save(String word);
-    List<Jokes> findAllByOrderByWordAsc();
-    List<Jokes> findByWordIgnoreCase(String word);
+    List<Words> findAllByOrderByWordAsc();
+    List<Words> findByWordIgnoreCase(String word);
 }
