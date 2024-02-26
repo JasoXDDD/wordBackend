@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.ArrayList.toArray;
 
 @Data  // Annotations to simplify writing code (ie constructors, setters)
 @NoArgsConstructor
@@ -33,6 +34,6 @@ public class Words {
             }
         }
         final String[] wordsArray = wordsList.toArray();
-        return wordsArray;
+        return wordsList;
     }
 }

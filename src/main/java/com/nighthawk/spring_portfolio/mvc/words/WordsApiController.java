@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.lang.*; 
+import java.lang.String.toCharArray; 
 
 @RestController // annotation to simplify the creation of RESTful web services
 @RequestMapping("/api/words")  // all requests in file begin with this URI
