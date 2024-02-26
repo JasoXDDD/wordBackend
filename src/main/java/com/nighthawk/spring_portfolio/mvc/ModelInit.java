@@ -15,6 +15,8 @@ import com.nighthawk.spring_portfolio.mvc.person.Person;
 import com.nighthawk.spring_portfolio.mvc.person.PersonDetailsService;
 import com.nighthawk.spring_portfolio.mvc.person.PersonRole;
 import com.nighthawk.spring_portfolio.mvc.person.PersonRoleJpaRepository;
+import com.nighthawk.spring_portfolio.mvc.words.Words;
+import com.nighthawk.spring_portfolio.mvc.words.WordsJpaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import java.util.List;
 @Configuration // Scans Application for ModelInit Bean, this detects CommandLineRunner
 public class ModelInit {  
     @Autowired JokesJpaRepository jokesRepo;
+    @Autowired WordsJpaRepository wordsRepo;
     @Autowired NoteJpaRepository noteRepo;
     @Autowired PersonRoleJpaRepository roleJpaRepository;
     @Autowired PersonDetailsService personDetailsService;
@@ -38,6 +41,13 @@ public class ModelInit {
                 List<Jokes> jokeFound = jokesRepo.findByJokeIgnoreCase(joke);  // JPA lookup
                 if (jokeFound.size() == 0)
                     jokesRepo.save(new Jokes(null, joke, 0, 0)); //JPA save
+            }
+
+            String[] wordsArray = Words.init();
+            for (String word : wordsArray) {
+                List<Words> wordFound = wordRepo.findByWordIgnoreCase(word);  // JPA lookup
+                if (wordFound.size() == 0)
+                    wordsRepo.save(new Words(null, word)); //JPA save
             }
 
             // Person database is populated with starting people
