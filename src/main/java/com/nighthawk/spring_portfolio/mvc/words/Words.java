@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.io.File;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 @Data  // Annotations to simplify writing code (ie constructors, setters)
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class Words {
         Scanner sc = new Scanner(common);
         while (sc.hasNextLine()){
             String commonWord = sc.nextLine();
-            if (commonWord.length>=3) {
+            if (commonWord.length()>=3) {
                 wordsList.add(commonWord);
             }
         }

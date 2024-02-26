@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.lang.*; 
 
 @RestController // annotation to simplify the creation of RESTful web services
 @RequestMapping("/api/words")  // all requests in file begin with this URI
@@ -29,7 +30,7 @@ public class WordsApiController {
         // ResponseEntity returns List of Jokes provide by JPA findAll()
         List<Words> words = repository.findAll();
         int id = (int)(1+words.size()*Math.random());
-        int leng = words.get(id-1).getWord().length;
+        int leng = words.get(id-1).getWord().length();
         int[] pack = {id,leng};
         return new ResponseEntity<>(pack, HttpStatus.OK);
     }

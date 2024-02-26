@@ -45,7 +45,7 @@ public class ModelInit {
 
             String[] wordsArray = Words.init();
             for (String word : wordsArray) {
-                List<Words> wordFound = wordRepo.findByWordIgnoreCase(word);  // JPA lookup
+                List<Words> wordFound = wordsRepo.findByWordIgnoreCase(word);  // JPA lookup
                 if (wordFound.size() == 0)
                     wordsRepo.save(new Words(null, word)); //JPA save
             }
