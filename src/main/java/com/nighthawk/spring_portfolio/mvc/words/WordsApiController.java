@@ -1,12 +1,16 @@
 package com.nighthawk.spring_portfolio.mvc.words;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
-import java.lang.String.toCharArray; 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController // annotation to simplify the creation of RESTful web services
 @RequestMapping("/api/words")  // all requests in file begin with this URI
@@ -44,22 +48,17 @@ public class WordsApiController {
         */
         Optional<Words> optional = repository.findById(id);
         if (optional.isPresent()) {  // Good ID
-            Words word = optional.get();  // value from findByID
-            char[] wordArr = word.toCharArray();
-            char[] guessArr = guess.toCharArray();
-            char[] resArr = word.toCharArray();
-            for (int i=0; i<guessArr.length;i++) {
-                resArr[i] = '*';
-                for (int j=0; j<wordArr.length;j++) {
-                    if (guessArr[i]==wordArr[j]) {
-                        resArr[i] = '+';
-                    }
-                }
-                if (guessArr[i]==wordArr[i]) {
-                    resArr[i] = guessArr[i];
+            String word = optional.get().getWord();  // value from findByID
+            String res = "";
+            for (int i=0; i<guess.length();i++) {
+                if (guess.substring(i, i+1).equals(word.substring(i,i+1))) {
+                    res += word.substring(i,i+1);
+                } else if (word.contains(guess.substring(i, i+1))) {
+                    res += "+";
+                } else {
+                    res += "*";
                 }
             }
-            String res = new String(resArr);
             return new ResponseEntity<>(res, HttpStatus.OK);  // OK HTTP response: status code, headers, and body
         }
         // Bad ID
