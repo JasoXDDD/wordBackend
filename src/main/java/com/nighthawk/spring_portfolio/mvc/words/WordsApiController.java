@@ -33,14 +33,15 @@ public class WordsApiController {
     public ResponseEntity<int[]> getNewWords() {
         // ResponseEntity returns List of Jokes provide by JPA findAll()
         List<Words> words = repository.findAll();
-        int id = (int)(1+words.size()*Math.random());
-        int leng = words.get(id-1).getWord().length();
+        int index = (int)(1+words.size()*Math.random());
+        int id = Math.toIntExact(words.get(index).getId());
+        int leng = words.get(index).getWord().length();
         int[] pack = {id,leng};
         return new ResponseEntity<>(pack, HttpStatus.OK);
     }
     
     @GetMapping("/guess/{id}/{guess}")
-    public ResponseEntity<String> setLike(@PathVariable long id, @PathVariable String guess) {
+    public ResponseEntity<String> guessWord(@PathVariable long id, @PathVariable String guess) {
         /* 
         * Optional (below) is a container object which helps determine if a result is present. 
         * If a value is present, isPresent() will return true
