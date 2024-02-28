@@ -39,8 +39,8 @@ public class WordsApiController {
         return new ResponseEntity<>(pack, HttpStatus.OK);
     }
     
-    @PostMapping("/guess/{id}/{guessWord}")
-    public ResponseEntity<String> setLike(@PathVariable long id, @PathVariable String guessWord) {
+    @GetMapping("/guess/{id}/{guess}")
+    public ResponseEntity<String> setLike(@PathVariable long id, @PathVariable String guess) {
         /* 
         * Optional (below) is a container object which helps determine if a result is present. 
         * If a value is present, isPresent() will return true
@@ -50,10 +50,10 @@ public class WordsApiController {
         if (optional.isPresent()) {  // Good ID
             String word = optional.get().getWord();  // value from findByID
             String res = "";
-            for (int i=0; i<guessWord.length();i++) {
-                if (guessWord.substring(i, i+1).equals(word.substring(i,i+1))) {
+            for (int i=0; i<guess.length();i++) {
+                if (guess.substring(i, i+1).equals(word.substring(i,i+1))) {
                     res += word.substring(i,i+1);
-                } else if (word.contains(guessWord.substring(i, i+1))) {
+                } else if (word.contains(guess.substring(i, i+1))) {
                     res += "+";
                 } else {
                     res += "*";
