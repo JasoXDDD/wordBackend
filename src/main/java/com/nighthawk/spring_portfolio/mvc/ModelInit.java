@@ -17,6 +17,8 @@ import com.nighthawk.spring_portfolio.mvc.person.PersonRole;
 import com.nighthawk.spring_portfolio.mvc.person.PersonRoleJpaRepository;
 import com.nighthawk.spring_portfolio.mvc.words.Words;
 import com.nighthawk.spring_portfolio.mvc.words.WordsJpaRepository;
+import com.nighthawk.spring_portfolio.mvc.textAI.Text;
+import com.nighthawk.spring_portfolio.mvc.textAI.TextsJpaRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class ModelInit {
     @Autowired NoteJpaRepository noteRepo;
     @Autowired PersonRoleJpaRepository roleJpaRepository;
     @Autowired PersonDetailsService personDetailsService;
+    @Autowired TextsJpaRepository textRepo;
 
     @Bean
     @Transactional
@@ -48,6 +51,15 @@ public class ModelInit {
                 List<Words> wordFound = wordsRepo.findByWordIgnoreCase(word);  // JPA lookup
                 if (wordFound.size() == 0)
                     wordsRepo.save(new Words(null, word)); //JPA save
+            }
+
+            Text[] texts = Text.init();
+            for (Text text : texts) {
+                Text existingText= textRepo.findByName(text.getName());
+                if (existingText == null) {
+                    // role doesn't exist
+                    textRepo.save(text);
+                }
             }
 
             // Person database is populated with starting people
